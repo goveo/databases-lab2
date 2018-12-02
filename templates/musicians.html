@@ -8,7 +8,8 @@
     <h1>All musicians</h1>
     {% for musician in musicians %}
         <li>
-            <a href="/musician/{{musician.id}}">{{ musician.name }}</a>
+            <a href="/musicians/{{musician.id}}">{{ musician.name }}</a>
+            id: {{musician.id}}
         </li>
     {% endfor %}
 </body>
