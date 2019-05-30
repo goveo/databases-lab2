@@ -28,7 +28,7 @@ class Inbox(npyscreen.ActionForm):
         for message_id in messages:
             message = connection.hmget("message:%s" % message_id, ["sender_id", "text", "status"])
             sender_id = message[0]
-            self.inbox.values.append("%s: - %s" % (connection.hmget("user:%s" % sender_id, ["login"])[0], message[1]))
+            self.inbox.values.append("%s: %s" % (connection.hmget("user:%s" % sender_id, ["login"])[0], message[1]))
             if message[2] != "delivered":
                 pipeline = connection.pipeline(True)
                 pipeline.hset("message:%s" % message_id, "status", "delivered")

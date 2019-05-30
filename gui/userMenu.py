@@ -14,7 +14,7 @@ class userMenu(npyscreen.MultiLineAction):
         self.name = "Main List"
 
     def display_value(self, vl):
-        return "|{:^76}|".format(str(vl))
+        return "{:^80}".format(str(vl))
 
 
     def actionHighlighted(self, act_on_this, keypress):
