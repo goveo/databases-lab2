@@ -1,6 +1,6 @@
 import npyscreen
 
-class Staticstic(npyscreen.ActionForm):
+class Statistic(npyscreen.ActionForm):
 
     def create(self):
         self.value = None

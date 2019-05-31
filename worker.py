@@ -18,7 +18,7 @@ class QueueMessageWorker(Thread):
             if message:
                 message_id = int(message[1])
 
-                self.conn.hmset('message:%s' % message_id, {
+                self.conn.hmset('message:{}'.format(message_id), {
                     'status': 'checking'
                 })
                 message = self.conn.hmget("message:%s" % message_id, ["sender_id", "consumer_id"])
@@ -48,19 +48,12 @@ class QueueMessageWorker(Thread):
                 pipeline.execute()
 
 
-def main():
-    handlers_count = 5
-    handlers_delay = 3
-    for x in range(handlers_count):
-        connection = redis.Redis(charset="utf-8", decode_responses=True)
-        # worker = QueueMessageWorker(connection, random.randint(0, 3))
-        worker = QueueMessageWorker(connection, 0)
-        # Setting daemon to True will let the main thread exit even though the workers are blocking
-        worker.daemon = True
-        worker.start()
-    while True:
-        pass
-
 
 if __name__ == '__main__':
-    main()
+    connection = redis.Redis(charset="utf-8", decode_responses=True)
+    # worker = QueueMessageWorker(connection, random.randint(0, 3))
+    worker = QueueMessageWorker(connection, 0.1)
+    worker.daemon = True
+    worker.start()
+    while True:
+        pass

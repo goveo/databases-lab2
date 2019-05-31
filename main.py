@@ -1,5 +1,4 @@
 import redis
-import atexit
 import npyscreen
 from gui import mainList
 from gui import register as registerForm
@@ -27,15 +26,11 @@ class App(npyscreen.NPSAppManaged):
         self.addForm("USER_MENU", userMenu.userMenuDisplay, title='User menu')
         self.addForm("SEND_MESSAGE", sendMessage.SendMessage, title='Send message')
         self.addForm("INBOX", inbox.Inbox, title='Inbox')
-        self.addForm("STATISTIC", statistic.Staticstic, title='Staticstic')
+        self.addForm("STATISTIC", statistic.Statistic, title='Statistic')
 
     def onCleanExit(self):
         ...
 
 if __name__ == '__main__':
-
     MyApp = App()
     MyApp.run()
-#
-# if __name__ == '__main__':
-#     main()

@@ -2,6 +2,8 @@ import datetime
 from threading import Thread
 import logging
 import redis
+import npyscreen
+from gui import adminMenu
 
 # add filemode="w" to overwrite
 logging.basicConfig(filename="events.log", level=logging.INFO)
@@ -69,5 +71,23 @@ def main():
             print("Wrong option selection. Enter any key to try again..")
 
 
+
+class App(npyscreen.NPSAppManaged):
+    def __init__(self, *args, **keywords):
+        super().__init__(*args, **keywords)
+
+    def onStart(self):
+        self.connection = redis.Redis(charset="utf-8", decode_responses=True)
+        self.listener = EventListener(self.connection)
+        self.listener.setDaemon(True)
+        self.listener.start()
+
+        self.addForm("MAIN", adminMenu.adminMenuDisplay, title='Admin menu')
+
+    def onCleanExit(self):
+        ...
+
 if __name__ == '__main__':
-    main()
+    # main()
+    MyApp = App()
+    MyApp.run()

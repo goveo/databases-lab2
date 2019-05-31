@@ -1,9 +1,10 @@
 from random import randint
 from threading import Thread
-import main as user
+from user import user
 from faker import Faker
 import redis
 import atexit
+import sys
 
 
 class User(Thread):
@@ -44,3 +45,8 @@ if __name__ == '__main__':
             users[x], users, users_count))
     for t in threads:
         t.start()
+    # while(True):
+    # command = input("> ")
+    # if command == "exit":
+    #     exit_handler()
+    #     # sys.exit(0)

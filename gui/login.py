@@ -12,8 +12,6 @@ def sign_in(conn, username) -> int:
     return int(user_id)
 
 
-
-
 class Login(npyscreen.ActionForm):
 
     def create(self):
