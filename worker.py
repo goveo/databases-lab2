@@ -50,10 +50,13 @@ class QueueMessageWorker(Thread):
 
 
 if __name__ == '__main__':
-    connection = redis.Redis(charset="utf-8", decode_responses=True)
-    # worker = QueueMessageWorker(connection, random.randint(0, 3))
-    worker = QueueMessageWorker(connection, 0.1)
-    worker.daemon = True
-    worker.start()
+    handlers_count = 5
+    handlers_delay = 3
+    for x in range(handlers_count):
+        connection = redis.Redis(charset="utf-8", decode_responses=True)
+        worker = QueueMessageWorker(connection, random.randint(0, 3))
+        # Setting daemon to True will let the main thread exit even though the workers are blocking
+        worker.daemon = True
+        worker.start()
     while True:
         pass

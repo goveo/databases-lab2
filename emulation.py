@@ -5,6 +5,7 @@ from faker import Faker
 import redis
 import atexit
 import sys
+import time
 
 
 class User(Thread):
@@ -17,10 +18,13 @@ class User(Thread):
         self.user_id = user.sign_in(conn, username)
 
     def run(self):
-        while True:
+        for i in range(100):
+            time.sleep(randint(0, 3))
             message_text = fake.sentence(nb_words=10, variable_nb_words=True, ext_word_list=None)
             receiver = users[randint(0, users_count - 1)]
             user.create_message(self.connection, message_text, self.user_id, receiver)
+        online = self.connection.smembers("online:")
+        self.connection.srem("online:", list(online))
 
 
 def exit_handler():

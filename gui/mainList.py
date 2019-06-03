@@ -24,6 +24,7 @@ class MainList(npyscreen.MultiLineAction):
             self.parent.parentApp.switchForm('LOGIN')
             ... #login
         if (index == 2):
+            self.sign_out()
             self.parent.parentApp.switchForm(None)
 
 

@@ -33,8 +33,8 @@ class SendMessage(npyscreen.ActionForm):
         consumer_id = int(conn.hget("users:", consumer))
 
         if not consumer_id:
-            print("Current user does not exist %s, unable to send message" % consumer)
-            return
+            # print("Current user does not exist %s, unable to send message" % consumer)
+            return -1
 
         pipeline = conn.pipeline(True)
 

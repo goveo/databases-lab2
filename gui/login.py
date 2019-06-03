@@ -28,8 +28,8 @@ class Login(npyscreen.ActionForm):
             ...
         else:
             self.parentApp.current_user_id = sign_in(self.connection, self.login.value )
-            signed_in = self.parentApp.current_user_id != -1
-            if signed_in:
+
+            if self.parentApp.current_user_id != -1:
                 self.connection.publish('users', "User %s signed in"
                                    % self.connection.hmget("user:%s" % self.parentApp.current_user_id, ["login"])[0])
                 self.parentApp.switchForm("USER_MENU")
